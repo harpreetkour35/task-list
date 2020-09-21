@@ -13,7 +13,10 @@ function App() {
     setInput("");
   };
 
-  
+  function handleDelete() {
+    console.log("me")
+  }
+
   return (
     
     <div className="App">
@@ -35,7 +38,7 @@ function App() {
         </Button>
         
         {tasks.map((item) => (
-            <ListItemComponent dataFromParent = {item} />
+            <ListItemComponent dataFromParent = {item} delete = {handleDelete}/>
           ))}
       </form>
       
