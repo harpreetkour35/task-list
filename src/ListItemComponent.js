@@ -11,6 +11,7 @@ function ListItemComponent(props) {
     const [textData, setTextData] = useState(props.dataFromParent)
     const [isEditButtonClicked, setButtonBehavior] = useState(false)
     const [input, setInput] = useState('');
+    
 
     const styles = {
         textDecorationLine: 'line-through',

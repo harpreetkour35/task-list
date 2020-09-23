@@ -14,8 +14,11 @@ function App() {
     setInput("");
   };
 
-  function handler(index) {
-    console.log(index)
+  const handleDelete = (index) => {
+    tasks.splice(index, 1)
+    console.log(tasks)
+    setTasks(tasks)
+    
 }
 
 
@@ -40,7 +43,7 @@ function App() {
         </Button>
         
         {tasks.map((item, index) => (
-            <ListItemComponent dataFromParent={item} dataIndex={index} action={handler} key={item} />
+            <ListItemComponent dataFromParent={item} dataIndex={index} action={handleDelete} key={item} />
           ))}
       </form>
       
@@ -49,3 +52,4 @@ function App() {
 }
 
 export default App;
+
