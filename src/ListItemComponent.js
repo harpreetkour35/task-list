@@ -1,13 +1,16 @@
-import React from "react";
-import { ListItem, ListItemIcon, Checkbox, ListItemText, } from "@material-ui/core/";
+import React, { useState } from "react";
+import { ListItem, ListItemIcon, Checkbox, ListItemText } from "@material-ui/core/";
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import Input from '@material-ui/core/Input';
 
 
 function ListItemComponent(props) {
 
-    const [checked, setChecked] = React.useState(false)
-    const [textData, setTextData] = React.useState(props.dataFromParent)
+    const [checked, setChecked] = useState(false)
+    const [textData, setTextData] = useState(props.dataFromParent)
+    const [isEditButtonClicked, setButtonBehavior] = useState(false)
+    const [input, setInput] = useState('');
 
     const styles = {
         textDecorationLine: 'line-through',
@@ -15,19 +18,30 @@ function ListItemComponent(props) {
     }
 
     function handleEdit() {
-        let newText = prompt("Rename Task")
-        setTextData(newText)
+        setButtonBehavior(!isEditButtonClicked)
+        setTextData(input)
     }
 
+    function handleBlur(event) {
+      setButtonBehavior(!isEditButtonClicked)
+      setTextData(input)
+    }
+
+
     return(
+      
         <div>
             <ListItem button style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }} >
             <ListItemIcon>
               <Checkbox checked={checked} onChange={() => setChecked(!checked)}/>
-            </ListItemIcon>
-            <ListItemText primary={textData} style={ checked ? styles : null } />
+            </ListItemIcon> 
+            {
+              isEditButtonClicked ? 
+              <Input style={{ width: '472px' }}value={input} onBlur={handleBlur} onChange={(event) => setInput(event.target.value)}/> 
+              : <ListItemText primary={textData} style={ checked ? styles : null } />
+            }
             <ListItemIcon>
-              <DeleteIcon style={{ color: "red" }} onClick={props.delete}/>
+              <DeleteIcon style={{ color: "red" }}  onClick={ () => props.action(props.dataIndex)}/>
             </ListItemIcon>
             <EditIcon onClick={handleEdit} />
           </ListItem>

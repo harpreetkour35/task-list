@@ -7,21 +7,23 @@ function App() {
 
   const [tasks, setTasks] = useState(["Exercise","Take Shower","Eat Breakfast", "Study"]);
   const [input, setInput] = useState('');
+  
  
   const addTask = () => {
     setTasks([...tasks, input]);
     setInput("");
   };
 
-  function handleDelete() {
-    console.log("me")
-  }
+  function handler(index) {
+    console.log(index)
+}
+
 
   return (
-    
+
     <div className="App">
       <h1>Task List App</h1>
-      <form>
+      <form >
         <FormControl>
           <InputLabel>Write your task here:</InputLabel>
           <Input value={input} onChange={(event) => setInput(event.target.value)}/>
@@ -37,8 +39,8 @@ function App() {
           Add
         </Button>
         
-        {tasks.map((item) => (
-            <ListItemComponent dataFromParent = {item} delete = {handleDelete}/>
+        {tasks.map((item, index) => (
+            <ListItemComponent dataFromParent={item} dataIndex={index} action={handler} key={item} />
           ))}
       </form>
       
